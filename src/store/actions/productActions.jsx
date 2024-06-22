@@ -6,9 +6,12 @@ const fetchProducts = () => async (dispatch) => {
   const token = localStorage.getItem("token");
   try {
     const response = await axios.get(
-      // import.meta.env.VITE_BASE_URL + "/products",
-      'http://localhost:3000/products',
+      `${import.meta.env.VITE_BASE_URL}/products`,
+      // 'http://localhost:3000/products'
       {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         withCredentials: true,
       }
     );

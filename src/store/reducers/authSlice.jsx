@@ -7,8 +7,8 @@ export const login = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        // import.meta.env.VITE_BASE_URL + "/user/login",
-        'http://localhost:3000/user/login',
+        `${import.meta.env.VITE_BASE_URL}/user/login`,
+        // 'http://localhost:3000/user/login',
         {
           username: username,
           password: password,
@@ -28,8 +28,8 @@ export const register = createAsyncThunk(
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        // import.meta.env.VITE_BASE_URL + "/user/register",
-        'http://localhost:3000/user/register',
+        `${import.meta.env.VITE_BASE_URL}/user/register`,
+        // 'http://localhost:3000/user/register',
         {
           username: name,
           email: email,

@@ -12,9 +12,10 @@ const RegisterComponent = () => {
   const { error } = useSelector(state => state.auth);
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const res = dispatch(register({ name, email, password }));
+    const res = await dispatch(register({ name, email, password }));
+    console.log(res)
     if (res.payload.success) {
       navigate('/products');
     }
