@@ -59,7 +59,7 @@ const Product = ({ id, productName, price, productInfo, productImage }) => {
       },
     };
     var razor = new window.Razorpay(options);
-    razor.open();
+    razor.open()
     setLoad(false);
   };
 

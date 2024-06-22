@@ -36,7 +36,8 @@ const LoginComponent = () => {
   };
 
   useEffect(() => {
-    if(token) {
+    
+  if(token) {
       toast.warn("User Already Logged In")
       navigate('/products')
     };
