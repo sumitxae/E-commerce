@@ -7,12 +7,11 @@ const fetchProducts = () => async (dispatch) => {
   try {
     const response = await axios.get(
       `${import.meta.env.VITE_BASE_URL}/products`,
-      // 'http://localhost:3000/products'
+      // 'http://localhost:3000/products',
       {
         headers: {
           Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
+        }
       }
     );
     const data = response.data;

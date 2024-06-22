@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../store/reducers/authSlice';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const RegisterComponent = () => {
   const [name, setName] = useState('');
@@ -15,11 +16,16 @@ const RegisterComponent = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     const res = await dispatch(register({ name, email, password }));
-    console.log(res)
     if (res.payload.success) {
       navigate('/products');
     }
   };
+  useEffect(() => {
+    if (localStorage.getItem('token')){
+      toast.warn('Please Logout First');
+      navigate('/products');
+    }
+  }, []);
 
   return (
     <div className='h-screen w-screen flex  items-center justify-center bg-zinc-900'>

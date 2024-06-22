@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/reducers/authSlice";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 const LoginComponent = () => {
   const [username, setUsername] = useState("");
@@ -10,20 +12,35 @@ const LoginComponent = () => {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
+  
 
+  const token = localStorage.getItem("token");
   const handleLogin = async (e) => {
+    if(error) {
+      toast.error(error.message)
+    }
+    setLoader(true)
     e.preventDefault();
     try {
       const response = await dispatch(login({ username, password }));
-      console.log(response)
       if (response.payload.success) {
-        navigate("/products");
+        toast.success("User Logged In")
+        navigate("/products");  
       }
     } catch (err) {
-      console.log(err);
+      toast.error("Invalid Credentials")
+    } finally {
+      setLoader(false)
     }
   };
 
+  useEffect(() => {
+    if(token) {
+      toast.warn("User Already Logged In")
+      navigate('/products')
+    };
+  }, []);
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-zinc-900">
       <form onSubmit={handleLogin} className="flex flex-col items-center justify-center">
@@ -43,10 +60,9 @@ const LoginComponent = () => {
           placeholder="Password"
           required
         />
-        <button className="bg-teal-800 mb-3 text-white py-2 mt-2 px-14 rounded-xl text-xl" type="submit">Login</button>
+        <button className="bg-teal-800 mb-3 text-white py-2 mt-2 px-14 rounded-xl text-xl" type="submit">{loader ? <ClipLoader color="white"/> : 'Login' }</button>
         <p className="text-white text-sm">New to assignment ? <NavLink className="text-teal-700" to={'/register'}>Register Here</NavLink> </p>
       </form>
-      {error && <p>{error.message}</p>}
     </div>
   );
 };

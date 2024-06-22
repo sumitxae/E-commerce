@@ -1,11 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router'
+import { toast } from 'react-toastify';
 
 const PaymentSuccess = () => {
     const payment_id = useParams().payment_id;
     const clickHandler = () => {
         window.location.href = '/products'
     }
+    toast.success('Payment Successful')
 
   return (
     <div className='h-screen w-screen bg-zinc-900 flex flex-col items-center justify-center text-white' >

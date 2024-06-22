@@ -13,13 +13,14 @@ import { fetchProducts } from "../store/actions/productActions";
 const DashBoard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/");
   };
+  // toast.success("User Logged In");
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
